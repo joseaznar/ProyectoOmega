@@ -4,9 +4,25 @@
         <servlet-name>SessionServlet</servlet-name>
         <servlet-class>Servlets.SessionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewTableServlet</servlet-name>
+        <servlet-class>Servlets.NewTableServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTableServlet</servlet-name>
+        <servlet-class>Servlets.CreateTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewTableServlet</servlet-name>
+        <url-pattern>/NewTableServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateTableServlet</servlet-name>
+        <url-pattern>/CreateTableServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
