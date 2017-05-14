@@ -19,6 +19,7 @@
         <h1>Tablas</h1>
         <%
             HttpSession s = request.getSession();
+            s.setAttribute("tabla", "");
             if(s.getAttribute("baseDatos")==null || s.getAttribute("baseDatos")=="")
                 s.setAttribute("baseDatos", request.getParameter("baseDatos"));
             
@@ -30,7 +31,10 @@
                 //System.out.println("req");
 
                 while (res.next()) {
-                    out.println("<p name='nombre'>"+res.getString("TABLE_NAME")+"</p><br>");
+                    out.println("<form action='registros.jsp'>");
+                    out.println("<input type = 'hidden' name = 'tabla' value = '"+res.getString("TABLE_NAME")+"' / >");
+                    out.println(res.getString("TABLE_NAME")+"<input type='submit' value='see registries' name='registros' />");
+                    out.println("</form>");
                 }
                 res.close(); 
                 con.close();
