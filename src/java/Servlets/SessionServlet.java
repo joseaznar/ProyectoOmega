@@ -46,7 +46,7 @@ public class SessionServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String usuario = (String)request.getParameter("usuario");
-            String contraseña = (String)request.getParameter("contraseña");
+            String contraseña = (String)request.getParameter("contrasegna");
             HttpSession s = request.getSession();
             
             
@@ -69,14 +69,14 @@ public class SessionServlet extends HttpServlet {
             }
             if(existe){
                 s.setAttribute("usuario", usuario);
-                s.setAttribute("contraseña", contraseña);
+                s.setAttribute("contrasegna", contraseña);
                 s.setAttribute("usuarioPot", "");
-                response.sendRedirect("baseDatos.jsp");
+                response.sendRedirect("basesDatos.jsp");
                 
             }
             else{
                 s.setAttribute("usuario", "");
-                s.setAttribute("contraseña", "");
+                s.setAttribute("contrasegna", "");
                 s.setAttribute("usuarioPot", "1");
                 dispatcher.forward(request, response);
             }

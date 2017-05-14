@@ -12,6 +12,14 @@
         <servlet-name>CreateTableServlet</servlet-name>
         <servlet-class>Servlets.CreateTableServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createUserServlet</servlet-name>
+        <servlet-class>Servlets.createUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createDBServlet</servlet-name>
+        <servlet-class>Servlets.createDBServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>CreateTableServlet</servlet-name>
         <url-pattern>/CreateTableServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createUserServlet</servlet-name>
+        <url-pattern>/createUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createDBServlet</servlet-name>
+        <url-pattern>/createDBServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

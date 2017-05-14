@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author HP
  */
-public class CreateTableServlet extends HttpServlet {
+public class createDBServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,37 +42,21 @@ public class CreateTableServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/tablas.jsp");
             HttpSession s = request.getSession();
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("usuario"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
             Statement query = con.createStatement();
-            String nombre = request.getParameter("nombre");
-            
-            String temp = "";
-            int cont = Integer.parseInt(request.getParameter("auxiliar"));
-            
-            for(int i=1;i<=cont;i++){
-                
-                String campo = request.getParameter("campo" + i);
-                String tipo = request.getParameter("tipo" + i);
-                
-                if(campo!=null && !campo.equals("")){
-                    if(i>1)
-                        temp += ", ";
-                    
-                    temp += " " + campo + " ";
-                    
-                    if(tipo.equals("Varchar"))
-                        temp += tipo + "(30)";
-                    else
-                        temp += tipo;
-                }
-            }
-            
-            String QueryString = "create table " + nombre + " (" + temp + ")";
-            query.executeUpdate(QueryString);
-            /* TODO output your page here. You may use following sample code. */
+            query.executeUpdate("INSERT INTO BASES" + s.getAttribute("usuario") + " VALUES ('"+ request.getParameter("baseDatos") + "')"); 
             con.close();
             dispatcher.forward(request, response);
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet createDBServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet createDBServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -91,9 +75,9 @@ public class CreateTableServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -111,9 +95,9 @@ public class CreateTableServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

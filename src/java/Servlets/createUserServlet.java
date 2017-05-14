@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author HP
  */
-public class CreateTableServlet extends HttpServlet {
+public class createUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,45 +34,37 @@ public class CreateTableServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/tablas.jsp");
-            HttpSession s = request.getSession();
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            HttpSession s = request.getSession(); 
+            s.setAttribute("usuario", request.getParameter("nombre"));
+            s.setAttribute("contrasegna", request.getParameter("contrasegna"));
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
-            Statement query = con.createStatement();
-            String nombre = request.getParameter("nombre");
-            
-            String temp = "";
-            int cont = Integer.parseInt(request.getParameter("auxiliar"));
-            
-            for(int i=1;i<=cont;i++){
-                
-                String campo = request.getParameter("campo" + i);
-                String tipo = request.getParameter("tipo" + i);
-                
-                if(campo!=null && !campo.equals("")){
-                    if(i>1)
-                        temp += ", ";
-                    
-                    temp += " " + campo + " ";
-                    
-                    if(tipo.equals("Varchar"))
-                        temp += tipo + "(30)";
-                    else
-                        temp += tipo;
-                }
-            }
-            
-            String QueryString = "create table " + nombre + " (" + temp + ")";
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("usuario")+";create=true;", (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
+            Statement query = con.createStatement(); 
+            String QueryString = "create table BASES" + s.getAttribute("usuario") + " (nombre varchar(30))"; 
             query.executeUpdate(QueryString);
-            /* TODO output your page here. You may use following sample code. */
+            con.close();
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/Users;create=true;","joseaznar","001992");
+            query = con.createStatement(); 
+            query.executeUpdate("INSERT INTO UNTITLED VALUES ('"+ s.getAttribute("usuario") +"', '"+ s.getAttribute("contrasegna") +"')"); 
             con.close();
             dispatcher.forward(request, response);
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet createUserServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet createUserServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -90,10 +82,10 @@ public class CreateTableServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(createUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -110,10 +102,10 @@ public class CreateTableServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CreateTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(createUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
