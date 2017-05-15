@@ -26,6 +26,14 @@
             s.setAttribute("tabla", request.getParameter("tabla"));
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
+            String table = (String)s.getAttribute("tabla");
+            ResultSet primaryKey  = con.getMetaData().getPrimaryKeys(null, null, table);
+            String pk = "";
+            if(primaryKey.next())
+                pk = primaryKey.getString("COLUMN_NAME");
+            primaryKey.close();
+            con.close();
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
             Statement query = con.createStatement();
             String QueryString = "SELECT * FROM "+s.getAttribute("tabla");
             ResultSet rs = query.executeQuery(QueryString);
@@ -47,24 +55,34 @@
             }
             out.println("<td></td><td></td>");
             out.println("</tr>");
+            
             while(rs.next()) {
-                String temp = "";
-                column = 1;
+                String temp = "";                
+                column = 1;                
+                String tempi = "";
                 for(int i=1;i<=numCol;i++){
-                    temp += "<td>"+rs.getString(rs.getMetaData().getColumnLabel(column))+"</td>";
+                    temp += "<td>"+rs.getString(rs.getMetaData().getColumnLabel(column))+"</td>";               
+                    if(rs.getMetaData().getColumnLabel(column).equals(pk))
+                        tempi = rs.getString(rs.getMetaData().getColumnLabel(column));
                     column++;
-                }               
+            }               
                           
                 out.println("<tr>");                
                 out.println(temp);
-                out.println("<form action='deleteRegistryServlet.jsp'>");               
+                out.println("<form action='deleteRegistryServlet'>");   
+                out.println("<input type = 'hidden' name = 'primaryKey' value = '"+pk+"' / >");
+                out.println("<input type = 'hidden' name = 'primaryKeyValue' value = '"+tempi+"' / >");
                 out.println("<td><input type = 'submit' value = 'delete' name = 'delete' / ></td>");
                 out.println("</form>");
-                out.println("<form action='editRegistryServlet.jsp'>");               
+                out.println("<form action='editRegistryServlet'>");               
+                out.println("<input type = 'hidden' name = 'primaryKey' value = '"+pk+"' / >");
+                out.println("<input type = 'hidden' name = 'primaryKeyValue' value = '"+tempi+"' / >");
                 out.println("<td><input type = 'submit' value = 'edit' name = 'edit' / ></td>");       
                 out.println("</form>");
                 out.println("</tr>");
             }
+            rs.close();
+            con.close();
             out.println("</tbody>");
             out.println("</table>");
         %>        
