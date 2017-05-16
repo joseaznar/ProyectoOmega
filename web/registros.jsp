@@ -57,24 +57,29 @@
             out.println("</tr>");
             
             while(rs.next()) {
-                String temp = "";                
+                String temp = "";   
+                String tempol = "";
                 column = 1;                
                 String tempi = "";
                 for(int i=1;i<=numCol;i++){
-                    temp += "<td>"+rs.getString(rs.getMetaData().getColumnLabel(column))+"</td>";               
+                    temp += "<td>"+rs.getString(rs.getMetaData().getColumnLabel(column))+"</td>"; 
+                    tempol += "<input type='hidden' name='campo"+i+"' value='"+rs.getString(rs.getMetaData().getColumnLabel(column))+"' />";  
                     if(rs.getMetaData().getColumnLabel(column).equals(pk))
                         tempi = rs.getString(rs.getMetaData().getColumnLabel(column));
                     column++;
-            }               
+                }               
                           
                 out.println("<tr>");                
                 out.println(temp);
-                out.println("<form action='deleteRegistryServlet'>");   
+                out.println("<form action='deleteRegistryServlet'>"); 
+                out.println("<input type = 'hidden' name = 'numCol' value = '"+numCol+"' />");
                 out.println("<input type = 'hidden' name = 'primaryKey' value = '"+pk+"' / >");
                 out.println("<input type = 'hidden' name = 'primaryKeyValue' value = '"+tempi+"' / >");
                 out.println("<td><input type = 'submit' value = 'delete' name = 'delete' / ></td>");
                 out.println("</form>");
-                out.println("<form action='editRegistryServlet'>");               
+                out.println("<form action='editRegistry.jsp'>"); 
+                out.println(tempol);
+                out.println("<input type = 'hidden' name = 'numCol' value = '"+numCol+"' />");
                 out.println("<input type = 'hidden' name = 'primaryKey' value = '"+pk+"' / >");
                 out.println("<input type = 'hidden' name = 'primaryKeyValue' value = '"+tempi+"' / >");
                 out.println("<td><input type = 'submit' value = 'edit' name = 'edit' / ></td>");       

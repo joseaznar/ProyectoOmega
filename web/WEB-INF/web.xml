@@ -28,6 +28,10 @@
         <servlet-name>deleteRegistryServlet</servlet-name>
         <servlet-class>Servlets.deleteRegistryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editRegistryServlet</servlet-name>
+        <servlet-class>Servlets.editRegistryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>deleteRegistryServlet</servlet-name>
         <url-pattern>/deleteRegistryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editRegistryServlet</servlet-name>
+        <url-pattern>/editRegistryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
