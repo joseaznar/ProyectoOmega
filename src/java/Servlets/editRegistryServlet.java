@@ -65,6 +65,7 @@ public class editRegistryServlet extends HttpServlet {
             String temp = "";
             for(int i=1; i<=Integer.parseInt(request.getParameter("numCol"));i++){
                 String columna = rs.getMetaData().getColumnLabel(i);
+                System.out.println("columna: " + columna);
                 if (i>1){
                     temp += ",";
                 }                       
@@ -82,15 +83,17 @@ public class editRegistryServlet extends HttpServlet {
                         temp += "'" + request.getParameter("campo"+i) + "'";
                     }
                 }
-                rs.close();
-                con.close();
-                con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
-                query = con.createStatement();
-                QueryString = "UPDATE "+s.getAttribute("tabla") + " SET " + temp + " WHERE " + request.getParameter("primaryKey") + "=" + primaryKey;
-                query.executeUpdate(QueryString);
-                con.close();
-                dispatcher.forward(request, response); 
+                 
             }  
+            rs.close();
+            con.close();
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/"+(String)s.getAttribute("baseDatos"), (String)s.getAttribute("usuario"), (String)s.getAttribute("contrasegna"));
+            query = con.createStatement();
+            QueryString = "UPDATE "+s.getAttribute("tabla") + " SET " + temp + " WHERE " + request.getParameter("primaryKey") + "=" + primaryKey;
+            System.out.println(QueryString);
+            query.executeUpdate(QueryString);
+            con.close();
+                dispatcher.forward(request, response);
         }
         }
     

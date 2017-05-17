@@ -32,6 +32,22 @@
         <servlet-name>editRegistryServlet</servlet-name>
         <servlet-class>Servlets.editRegistryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>showNextRegistriesServlet</servlet-name>
+        <servlet-class>Servlets.showNextRegistriesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showPreviousRegistriesServlet</servlet-name>
+        <servlet-class>Servlets.showPreviousRegistriesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showFirstRegistriesServlet</servlet-name>
+        <servlet-class>Servlets.showFirstRegistriesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showLastRegistriesServlet</servlet-name>
+        <servlet-class>Servlets.showLastRegistriesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
@@ -63,6 +79,22 @@
     <servlet-mapping>
         <servlet-name>editRegistryServlet</servlet-name>
         <url-pattern>/editRegistryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showNextRegistriesServlet</servlet-name>
+        <url-pattern>/showNextRegistriesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showPreviousRegistriesServlet</servlet-name>
+        <url-pattern>/showPreviousRegistriesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showFirstRegistriesServlet</servlet-name>
+        <url-pattern>/showFirstRegistriesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showLastRegistriesServlet</servlet-name>
+        <url-pattern>/showLastRegistriesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

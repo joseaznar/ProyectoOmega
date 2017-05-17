@@ -48,13 +48,15 @@ public class CreateTableServlet extends HttpServlet {
             
             String temp = "";
             int cont = Integer.parseInt(request.getParameter("auxiliar"));
-            
+            String primaryKey = "";
             for(int i=1;i<=cont;i++){
                 
                 String campo = request.getParameter("campo" + i);
                 String tipo = request.getParameter("tipo" + i);
                 
                 if(campo!=null && !campo.equals("")){
+                    if (i==1)
+                        primaryKey = campo;                            
                     if(i>1)
                         temp += ", ";
                     
@@ -67,7 +69,7 @@ public class CreateTableServlet extends HttpServlet {
                 }
             }
             
-            String QueryString = "create table " + nombre + " (" + temp + ")";
+            String QueryString = "create table " + nombre + " (" + temp + ",primary key("+primaryKey+"))";
             query.executeUpdate(QueryString);
             /* TODO output your page here. You may use following sample code. */
             con.close();
