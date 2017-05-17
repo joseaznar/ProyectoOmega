@@ -19,6 +19,10 @@
         <h1>Tablas</h1>
         <%
             HttpSession s = request.getSession();
+            if(s.getAttribute("usuario")==null || s.getAttribute("usuario").equals("")){
+                s.setAttribute("usuarioPot", "1");
+                response.sendRedirect("index.jsp");
+            }
             s.setAttribute("tabla", "");
             if(s.getAttribute("baseDatos")==null || s.getAttribute("baseDatos")=="")
                 s.setAttribute("baseDatos", request.getParameter("baseDatos"));

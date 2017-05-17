@@ -16,6 +16,14 @@
     </head>
     <body>
         <h1>Nueva Tabla</h1>
+        **Nota: La primera columna de la tabla sera la llave primaria.
+        <%
+            HttpSession s = request.getSession();
+            if(s.getAttribute("usuario")==null || s.getAttribute("usuario").equals("")){
+                s.setAttribute("usuarioPot", "1");
+                response.sendRedirect("index.jsp");
+            }
+        %>
         <script>
             function agregar(){               
                 var hid = document.getElementById("auxiliar").getAttribute("value");

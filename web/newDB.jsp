@@ -13,7 +13,15 @@
     </head>
     <body>
         <h1>New DB</h1>
+        <%
+            HttpSession s = request.getSession();
+            if(s.getAttribute("usuario")==null || s.getAttribute("usuario").equals("")){
+                s.setAttribute("usuarioPot", "1");
+                response.sendRedirect("index.jsp");
+            }
+        %>
         <form action="createDBServlet">
+            
             Nombre: <input type="text" name="baseDatos" id="baseDatos" value="" />
             <input type="submit" value="send" />
         </form>

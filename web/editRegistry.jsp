@@ -15,6 +15,11 @@
         <h1>Edit registry</h1>
         <form action="editRegistryServlet">
             <%
+                HttpSession s = request.getSession();
+                if(s.getAttribute("usuario")==null || s.getAttribute("usuario").equals("")){
+                    s.setAttribute("usuarioPot", "1");
+                    response.sendRedirect("index.jsp");
+                }
                 for(int i=1;i<=Integer.parseInt(request.getParameter("numCol"));i++){
                     out.println("<input type = 'text' name = 'campo"+i+"' value = '"+request.getParameter("campo"+i)+"' / >");
                 }
