@@ -32,7 +32,6 @@
                 
                 var txt = document.createTextNode("Field name: ");       // Create a text node
                 document.getElementById("forma").appendChild(txt); 
-                alert("entró");
                 var inp = document.createElement("INPUT");        // Create a <button> element                           // Append the text to <button>
                 inp.setAttribute("type", "text");
                 inp.setAttribute("name", "campo" + hid);
