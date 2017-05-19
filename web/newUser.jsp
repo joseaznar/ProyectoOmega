@@ -13,13 +13,7 @@
     </head>
     <body>
         <h1>Register</h1>
-        <%
-            HttpSession s = request.getSession();
-            if(s.getAttribute("usuario")==null || s.getAttribute("usuario").equals("")){
-                s.setAttribute("usuarioPot", "1");
-                response.sendRedirect("index.jsp");
-            }
-        %>
+        
         <form action="createUserServlet">
             Name: <input type="text" name="nombre" value="" /><br>
             Password: <input type="password" name="contrasegna" value="" /><br>
