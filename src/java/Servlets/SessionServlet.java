@@ -51,7 +51,7 @@ public class SessionServlet extends HttpServlet {
             
             
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/Users","joseaznar","001992");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/Users","joseaznar","joseaznar");
             Statement query = con.createStatement(); 
             ResultSet res = query.executeQuery("SELECT * FROM UNTITLED"); 
             //ResultSet res = meta.getPrimaryKeys("", "JOSEAZNAR", "UNTITLED");

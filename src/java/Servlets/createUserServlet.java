@@ -50,7 +50,7 @@ public class createUserServlet extends HttpServlet {
             String QueryString = "create table BASES" + s.getAttribute("usuario") + " (nombre varchar(30))"; 
             query.executeUpdate(QueryString);
             con.close();
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/Users;create=true;","joseaznar","001992");
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/Users;create=true;","joseaznar","joseaznar");
             query = con.createStatement(); 
             query.executeUpdate("INSERT INTO UNTITLED VALUES ('"+ s.getAttribute("usuario") +"', '"+ s.getAttribute("contrasegna") +"')"); 
             con.close();
